@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO-DO-LIST</title>
+    <style>
+        body{
+            background-color: #f1f1f1;
+            justify-content: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h1{
+            text-align: center;
+            margin-top: 20px;
+        }
+        .container{
+            justify-content: center;
+            align-items: center;
+        }
+        .delete{
+            background-color: darkred;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 15px;
+        }
+        
+        .to-do-grid, .to-do-input-grid{
+            display: grid;
+            grid-template-columns: 200px 150px  100px;
+            column-gap: 10px;
+            row-gap: 10px;
+            align-items: center;
+            justify-content: center;
+        }
+        .to-do-input-grid{
+            margin-top: 50px;
+            margin-bottom: 10px;
+            align-items: stretch;
+            justify-content: center;
+            
+        }
+        .input-task, .input-date{
+            padding: 6px;
+            font-size: 15px;
+
+        }
+        .add-todo{
+            background-color: green;
+            color: white;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h1>TO-DO-LIST</h1>
+    <div class="to-do-input-grid">
+    <input type="text" name="activity" placeholder="Enter the tasks" class="js-name input-task">
+    <input type="date" class="date-input input-date">
+    <button onclick="
+    addTodo();
+    rendertodo();
+    " class="add-todo">Add</button>
+    </div>
+    <div class="js-display-task to-do-grid">
+
+    </div>
+    </div>
+    
+
+
+    <script>
+
+    const todo = [
+    {
+        name : 'make dinner',
+        duedate : '2020-05-05'
+    }, 
+    {
+        name : 'wash-dishes',
+        duedate : '2020-05-28'
+    }
+    ];
+
+    rendertodo();
+    function addTodo() {
+        const task = document.querySelector('.js-name');
+        const date = document.querySelector('.date-input');
+        const tname = task.value ;
+        const tdate = date.value;
+        console.log(name);
+        todo.push({name : tname, duedate : tdate});
+        console.log(todo);
+
+        task.value = '';
+        date.value = '';
+        
+    }
+
+    function deletetask() {
+        const task = document.querySelector('.js-name');
+        const name = task.value ;
+        todo.splice(name,1);
+        rendertodo();
+    }
+
+
+    function rendertodo() {
+        i=0;
+        n=todo.length;
+        console.log(n);
+        todohtml = ''
+        for (i=0; i<n; i++) {
+            const tasks = todo[i];
+            const name = tasks.name;
+            const date = tasks.duedate;
+            const html = 
+            `<div>${name}</div>
+             <div>${date}</div>
+             <button class="delete" onclick="deletetask()">
+                Delete
+            </button>`;
+            todohtml += html;
+        }
+        document.querySelector('.js-display-task')
+            .innerHTML = todohtml;
+    }
+
+    rendertodo();
+    
+    </script>
+</body>
+</html>
